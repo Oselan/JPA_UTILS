@@ -1,8 +1,5 @@
 package com.oselan.jpa_utils.repository;
 
-import org.springframework.data.repository.NoRepositoryBean;
-
-@NoRepositoryBean
 public interface ExtendedRepository  { 
   
     /***
