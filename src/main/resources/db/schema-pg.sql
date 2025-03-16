@@ -12,20 +12,25 @@ CREATE OR REPLACE PROCEDURE "jpa_utils".raise_notice_check()
  LANGUAGE plpgsql
 AS $procedure$
 BEGIN 
-
-    
-    
+ 
     RAISE LOG  'Log from procedure...'; --this is not visible in console
+    PERFORM pg_notify('log_channel', 'Processing step '  );
+    
+    PERFORM pg_sleep(5);
     RAISE DEBUG  'DEBUG from procedure..'; -- this is not visible in console
-     
-    RAISE INFO  'INFO from procedure...'; 
+     PERFORM pg_sleep(2);
+    RAISE INFO  'INFO from procedure...';
+    PERFORM pg_sleep(2); 
     RAISE WARNING  'WARNING  from procedure...';
+    PERFORM pg_sleep(2);
     -- this is only visible if  spring.jpa.hibernate.ddl-auto: validate 
     RAISE NOTICE 'Notice from procedure ...'; 
     -- if spring.jpa.hibernate.ddl-auto: create it will not be visible in console 
-    
+    PERFORM pg_sleep(2);
  --   RAISE EXCEPTION  'EXCEPTION  from procedure...'; 
+    PERFORM pg_notify('log_channel', 'Processing step2'  );
     
+    PERFORM pg_sleep(2);
 END;
 $procedure$
 $$ 
