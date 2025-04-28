@@ -13,15 +13,15 @@ CREATE OR REPLACE PROCEDURE "jpa_utils".raise_notice_check()
 AS $procedure$
 BEGIN 
  
-    RAISE LOG  'Log from procedure...'; --this is not visible in console
+    RAISE LOG  '% Log from procedure...', TO_CHAR(clock_timestamp(), 'YYYY-MM-DD HH24:MI:SS'); --this is not visible in console
     PERFORM pg_notify('log_channel', 'Processing step '  );
     
     PERFORM pg_sleep(5);
     RAISE DEBUG  'DEBUG from procedure..'; -- this is not visible in console
      PERFORM pg_sleep(2);
-    RAISE INFO  'INFO from procedure...';
+    RAISE INFO  '% INFO from procedure...',TO_CHAR(clock_timestamp(), 'YYYY-MM-DD HH24:MI:SS');
     PERFORM pg_sleep(2); 
-    RAISE WARNING  'WARNING  from procedure...';
+    RAISE WARNING  '% WARNING  from procedure...' ,TO_CHAR(clock_timestamp(), 'YYYY-MM-DD HH24:MI:SS');
     PERFORM pg_sleep(2);
     -- this is only visible if  spring.jpa.hibernate.ddl-auto: validate 
     RAISE NOTICE 'Notice from procedure ...'; 

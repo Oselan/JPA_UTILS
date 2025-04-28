@@ -36,7 +36,7 @@ public class PostgresNotificationListener   {
                     stmt.execute("LISTEN log_channel");
                     log.info("Listening to PostgreSQL notifications on 'log_channel'...");
                     while (!Thread.currentThread().isInterrupted()) {
-                        PGNotification[] notifications = pgCon.getNotifications(5000);
+                        PGNotification[] notifications = pgCon.getNotifications(1000);
                         if (notifications != null) {
                             for (PGNotification notification : notifications) {
                                 log.info("Received PostgreSQL Notification: {}", notification.getParameter());
